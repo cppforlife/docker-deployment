@@ -1,0 +1,79 @@
+name: docker
+
+releases:
+- name: docker
+  url: file:///tmp/docker-release
+- name: os-conf
+  version: 11
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=11
+  sha1: 651f10a765a2900a7f69ea07705f3367bd8041eb
+
+disk_pools:
+- name: disks
+  disk_size: 20_000
+
+resource_pools:
+- name: vms
+  network: default
+  env:
+    bosh:
+      password: '*'
+
+networks:
+- name: default
+  type: manual
+  subnets:
+  - range: ((internal_cidr))
+    gateway: ((internal_gw))
+    static: [((internal_ip))]
+    dns: [8.8.8.8]
+
+instance_groups:
+- name: docker
+  instances: 1
+  resource_pool: vms
+  persistent_disk_pool: disks
+  networks:
+  - name: default
+    static_ips: [((internal_ip))]
+  jobs:
+  - name: disable_agent
+    release: os-conf
+    properties: {}
+  - name: docker
+    release: docker
+    properties:
+      tls: ((docker_ssl))
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
+
+cloud_provider:
+  mbus: https://mbus:((mbus_bootstrap_password))@((internal_ip)):6868
+  properties:
+    agent: {mbus: "https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868"}
+    blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
+    ntp: &ntp
+    - time1.google.com
+    - time2.google.com
+    - time3.google.com
+    - time4.google.com
+
+variables:
+- name: default_ca
+  type: certificate
+  options:
+    is_ca: true
+    common_name: ca
+- name: docker_ssl
+  type: certificate
+  options:
+    ca: default_ca
+    common_name: ((internal_ip))
+    alternative_names: [((internal_ip))]
+- name: mbus_bootstrap_password
+  type: password

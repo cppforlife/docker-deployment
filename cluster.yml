@@ -1,0 +1,46 @@
+- type: replace
+  path: /releases/name=etcd?
+  value:
+    name: etcd
+    version: 93
+    url: https://bosh.io/d/github.com/cloudfoundry-incubator/etcd-release?v=93
+    sha1: c58be90a5b987d8b98a866d959546d0862828058
+
+# Configure cluster mode
+- type: replace
+  path: /instance_groups/name=docker/jobs/-
+  value:
+    name: etcd
+    release: etcd
+    properties:
+      etcd:
+        machines: [((internal_ip))]
+        require_ssl: false
+        peer_require_ssl: false
+
+- type: replace
+  path: /instance_groups/name=docker/jobs/name=docker/properties/cluster_store?
+  value: etcd://((internal_ip)):4001
+
+# Bootstrap swarm
+- type: replace
+  path: /instance_groups/name=docker/jobs/-
+  value:
+    name: bootstrap_single_swarm
+    release: docker
+    properties:
+      tls: ((docker_swarm_ssl))
+      docker:
+        address: ((internal_ip))
+        tls: ((docker_ssl))
+        cluster_store: etcd://((internal_ip)):4001
+
+- type: replace
+  path: /variables/-
+  value:
+    name: docker_swarm_ssl
+    type: certificate
+    options:
+      ca: default_ca
+      common_name: ((internal_ip))
+      alternative_names: [((internal_ip))]
