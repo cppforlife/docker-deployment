@@ -9,7 +9,6 @@ bosh create-env docker.yml \
   -o ./virtualbox/cpi.yml \
   -o ./virtualbox/outbound-network.yml \
   -o jumpbox-user.yml \
-  -o cluster.yml \
   --vars-store ./creds.yml \
   -v internal_ip=192.168.50.8 \
   -v internal_gw=192.168.50.1 \
