@@ -22,5 +22,6 @@ Connect to Docker:
 ```
 $ export DOCKER_TLS_VERIFY=true
 $ export DOCKER_HOST=tcp://192.168.50.8:4243
+$ bosh int creds.yml --path /docker_ssl/ca > ~/.docker/ca.pem
 $ docker images
 ```
