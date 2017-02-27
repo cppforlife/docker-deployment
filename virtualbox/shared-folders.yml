@@ -1,7 +1,7 @@
 - type: replace
   path: /resource_pools/name=vms/cloud_properties?/shared_folders
   value:
-    - host_path: ((shared_from))
+  - host_path: ((shared_from))
 
 - type: replace
   path: /instance_groups/name=docker/jobs/-
