@@ -1,0 +1,13 @@
+- type: replace
+  path: /resource_pools/name=vms/cloud_properties?/shared_folders
+  value:
+    - host_path: ((shared_from))
+
+- type: replace
+  path: /instance_groups/name=docker/jobs/-
+  value:
+    name: guest-additions
+    release: bosh-virtualbox-cpi
+    properties:
+      shared_folders:
+      - guest_path: ((shared_to))
