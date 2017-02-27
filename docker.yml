@@ -75,5 +75,14 @@ variables:
     ca: default_ca
     common_name: ((internal_ip))
     alternative_names: [((internal_ip))]
+    extended_key_usage:
+    - server_auth
+- name: docker_client_ssl
+  type: certificate
+  options:
+    ca: default_ca
+    common_name: client
+    extended_key_usage:
+    - client_auth
 - name: mbus_bootstrap_password
   type: password

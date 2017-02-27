@@ -19,11 +19,13 @@ $ bosh create-env docker.yml \
   -v shared_to=/tmp/foo
 ```
 
-Connect to Docker:
+Connect to Docker from the host (verified via mutual TLS):
 
 ```
 $ export DOCKER_TLS_VERIFY=true
 $ export DOCKER_HOST=tcp://192.168.50.8:4243
-$ bosh int creds.yml --path /docker_ssl/ca > ~/.docker/ca.pem
+$ bosh int creds.yml --path /docker_client_ssl/ca > ~/.docker/ca.pem
+$ bosh int creds.yml --path /docker_client_ssl/certificate > ~/.docker/cert.pem
+$ bosh int creds.yml --path /docker_client_ssl/private_key > ~/.docker/key.pem
 $ docker images
 ```
