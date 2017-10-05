@@ -28,6 +28,13 @@ $ bosh int creds.yml --path /docker_client_ssl/private_key > ~/.docker/key.pem
 $ docker images
 ```
 
+or, connect to Docker from the host (UNIX sock):
+
+```
+$ export DOCKER_HOST=unix:///var/run/docker.sock
+$ docker images
+```
+
 Example with VirtualBox shared folders:
 
 ```
@@ -44,4 +51,10 @@ $ bosh create-env docker.yml \
   -v outbound_network_name=NatNetwork \
   -v shared_from=/tmp/foo \
   -v shared_to=/tmp/foo
+```
+
+Create a network:
+
+```
+$ docker network create --subnet=10.10.0.2/16 net2
 ```
