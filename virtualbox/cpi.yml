@@ -3,15 +3,15 @@
   path: /releases/-
   value:
     name: bosh-virtualbox-cpi
-    version: 0.0.10
-    url: https://bosh.io/d/github.com/cppforlife/bosh-virtualbox-cpi-release?v=0.0.10
-    sha1: fd67549c2165f845b77798f5d861020d87d9da9c
+    version: 0.0.11
+    url: https://bosh.io/d/github.com/cppforlife/bosh-virtualbox-cpi-release?v=0.0.11
+    sha1: 0b39e1b43a509adba295275fcc2afee1fb046c5d
 
 - type: replace
   path: /resource_pools/name=vms/stemcell?
   value:
-    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent?v=3312.15
-    sha1: 60b8230da19d7e27b5101fc34f569e85eb5b3ad0
+    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent?v=3445.7
+    sha1: 7384d9dec403ed7943f76c0ea508f7185a01ba0b
 
 - type: replace
   path: /resource_pools/name=vms/cloud_properties?
