@@ -46,6 +46,11 @@ instance_groups:
     release: docker
     properties:
       tls: ((docker_ssl))
+  - name: docker-tools
+    release: docker
+    properties:
+      address: ((internal_ip))
+      tls: ((docker_client_ssl))
 
 update:
   canaries: 1
