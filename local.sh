@@ -4,10 +4,11 @@ set -e
 
 rm -f ./creds.yml
 
-bosh create-env docker.yml \
+bosh create-env --recreate docker.yml \
   --state ./state.json \
   -o ./virtualbox/cpi.yml \
   -o ./virtualbox/outbound-network.yml \
+  -o ipv6.yml \
   -o jumpbox-user.yml \
   --vars-store ./creds.yml \
   -v internal_ip=192.168.50.8 \

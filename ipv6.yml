@@ -1,0 +1,3 @@
+- type: replace
+  path: /resource_pools/name=vms/env?/bosh/ipv6/enable
+  value: true
