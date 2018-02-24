@@ -2,13 +2,13 @@ name: docker
 
 releases:
 - name: docker
-  version: 0.0.2
-  url: https://bosh.io/d/github.com/cppforlife/docker-release?v=0.0.2
-  sha1: dc08a8ed5e4865fd7846c4d40649a6e9fe43a6b9
+  version: 0.0.3
+  url: https://bosh.io/d/github.com/cppforlife/docker-release?v=0.0.3
+  sha1: 2f8b65830effb47a45a7278d9d1e649cdf64b9f8
 - name: os-conf
-  version: 11
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=11
-  sha1: 651f10a765a2900a7f69ea07705f3367bd8041eb
+  version: 17
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=17
+  sha1: 36bce1030fda4acc102315344d4110994fa1fa43
 
 disk_pools:
 - name: disks
